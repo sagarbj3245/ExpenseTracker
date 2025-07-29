@@ -1,48 +1,38 @@
 
-
 ```markdown
-# 💸 ExpenseTracker - Premium Expense Management System
+# 💸 Expense Tracker
 
-A full-stack Expense Tracker web application with authentication, password reset via email, premium membership (with Cashfree integration),  and secure REST APIs. Built using Node.js, Express, Sequelize ORM, and MySQL.
-
----
-
-## 🚀 Features
-
-- 🔐 User signup/login with JWT authentication
-- 💰 Track, add, and delete expenses
-- 💎 Premium membership via **Cashfree Payments**
-- 📊 Premium dashboard with analytics
-- 📧 Password reset via Brevo email API
-- ☁️ MySQL + Sequelize ORM with migrations
-- 🧠 Follows MVC architecture and secure backend practices
+A full-stack Expense Tracker application built using **Node.js**, **Express.js**, **Sequelize**, and **MySQL**. It allows users to track daily expenses, upgrade to premium via **Cashfree Payment Gateway**, and access advanced analytics. Password reset is also enabled via email using **Brevo**.
 
 ---
 
-## 🛠️ Tech Stack
+## 🧰 Tech Stack
 
-**Languages & Frameworks**  
-- JavaScript, Node.js, Express.js  
-- HTML, CSS, Bootstrap
+### 🖥 Backend
+- **Node.js**
+- **Express.js**
+- **Sequelize ORM**
+- **MySQL**
 
-**Database**  
-- MySQL with Sequelize ORM  
-- AWS RDS (optional for production)
+### 🌐 Frontend
+- **HTML**, **CSS**, **JavaScript**
+- **Bootstrap**
 
-**Authentication & Security**  
-- JWT, bcrypt, dotenv  
-- Role-based access for premium features
+### 🔐 Authentication & Security
+- **JWT (JSON Web Tokens)**
+- **bcrypt** (password hashing)
+- **dotenv** (environment variables)
 
-**APIs & Libraries**  
-- Cashfree Payments  
-- Brevo (email API)  
-- Sequelize, Express Router
+### 💳 Payment Integration
+- **Cashfree Payment Gateway** (test credentials)
 
-**DevOps/Cloud**  
-- AWS EC2, IAM, RDS
+### ✉️ Email Service
+- **Brevo API** (for sending password reset links)
 
-**Tools**  
-- Git, GitHub, Postman
+### ☁️ Deployment
+- **AWS EC2** (backend deployment)
+- **S3** (for static asset storage)
+- **IAM & RDS** (database access & role permissions)
 
 ---
 
@@ -50,136 +40,123 @@ A full-stack Expense Tracker web application with authentication, password reset
 
 ```
 
-ExpenseTracker/
-├── app.js                   # Entry point
-├── .env                    # Environment variables
+.
+├── app.js
+├── .env
 ├── package.json
-├── config/
-│   └── config.json         # DB configuration
-├── controllers/            # Handles business logic
-├── db/                     # Sequelize DB connection
-├── middleware/             # Auth middleware
-├── models/                 # Sequelize models
-├── migrations/             # Sequelize migrations
-├── public/                 # Frontend JavaScript
-├── routes/                 # Express routes
-├── utils/                  # Email client (Brevo)
-├── views/                  # HTML pages (Login, Signup, Expense, Premium, Reset Password)
-
-```
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file at the root:
-
-```
-
-JWT\_SECRET=your\_jwt\_secret\_key
-CASHFREE\_CLIENT\_ID=your\_cashfree\_client\_id
-CASHFREE\_CLIENT\_SECRET=your\_cashfree\_client\_secret
-DB\_NAME=expensetracker
-DB\_USER=root
-DB\_PASS=your\_mysql\_password
-BREVO\_API\_KEY=your\_brevo\_api\_key
-RESET\_PASSWORD\_BASE\_URL=[http://localhost:3000/password/resetpassword](http://localhost:3000/password/resetpassword)
-
+├── config
+│   └── config.json
+├── controllers
+│   ├── authController.js
+│   ├── expenseController.js
+│   ├── passwordController.js
+│   ├── paymentController.js
+│   └── premiumController.js
+├── db
+├── models
+│   ├── users.js
+│   ├── expenses.js
+│   ├── forgotPassword.js
+│   ├── orders.js
+│   └── index.js
+├── middleware
+│   └── authMiddleware.js
+├── migrations
+├── public
+│   ├── login.js
+│   ├── signup.js
+│   ├── expense.js
+│   ├── premium.js
+│   └── resetpassword.js
+├── routes
+│   ├── authRoutes.js
+│   ├── expenseRoutes.js
+│   ├── passwordRoutes.js
+│   ├── paymentRoutes.js
+│   ├── premiumRoutes.js
+│   └── User.js
+├── utils
+│   └── brevoClient.js
+└── views
+├── login.html
+├── signup.html
+├── expense.html
+├── premium.html
+├── resetpassword.html
+└── paymentSuccess.html
 
 ````
 
 ---
 
-## 📦 Installation
+## 🔧 How to Run Locally
 
+### 1️⃣ Clone the repository
 ```bash
-# Clone the repository
 git clone https://github.com/sagarbj3245/ExpenseTracker.git
 cd ExpenseTracker
-
-# Install dependencies
-npm install
 ````
 
----
-
-## 🧪 Running the App
+### 2️⃣ Install dependencies
 
 ```bash
-# Set up database via Sequelize migrations
-npx sequelize-cli db:migrate
+npm install
+```
 
-# Start the server
+### 3️⃣ Set up `.env` file
+
+Create a `.env` file in the root directory and add:
+
+```
+JWT_SECRET=your_jwt_secret
+CASHFREE_CLIENT_ID=your_cashfree_client_id
+CASHFREE_CLIENT_SECRET=your_cashfree_client_secret
+DB_NAME=expensetracker
+DB_USER=root
+DB_PASS=your_db_password
+BREVO_API_KEY=your_brevo_api_key
+RESET_PASSWORD_BASE_URL=http://localhost:3000/password/resetpassword
+```
+
+### 4️⃣ Set up MySQL
+
+* Create a MySQL database with the name provided in `.env`
+* Run Sequelize migrations (if applicable) or sync via `sequelize.sync()`
+
+### 5️⃣ Run the server
+
+```bash
 node app.js
 ```
 
-Server runs on: `http://localhost:3000`
+---
+
+## 🌟 Features
+
+* 🔐 **User Authentication** – Login, Signup, JWT protected routes
+* 💸 **Add, View, Delete Expenses**
+* 🏅 **Premium Membership** with **Cashfree Integration**
+* 📊 **Leaderboard & Reports** (Premium only)
+* 🔁 **Password Reset via Email** (using Brevo)
+* 🧼 MVC Pattern with modular codebase
 
 ---
 
-## 💳 Premium Membership
-
-* Initiates Cashfree payment
-* Verifies payment and updates user role
-* Grants access to premium analytics and leaderboard
-
----
-
-## 🔐 Auth & Security
-
-* Passwords are hashed using **bcrypt**
-* Tokens are signed with **JWT**
-* Authorization handled via **middleware**
-* Password reset tokens expire and are verified before use
-
----
-
-## 📧 Password Reset (via Brevo)
-
-1. User requests reset link
-2. Email is sent with a reset link
-3. New password is saved after token verification
-
----
-
-## 📊 Premium Dashboard
-
-* Total spent
-* Filtered stats
-* Leaderboard of all users (premium only)
-* Expense downloads
-
----
-
-## ✅ Dependencies
-
-* `express`
-* `sequelize`
-* `mysql2`
-* `jsonwebtoken`
-* `bcrypt`
-* `dotenv`
-* `axios`
-* `nodemailer` (Brevo API)
-* `cashfree-pg`
-
----
-
-## 🌐 Deployment
-
-This project can be deployed on:
-
-* **Frontend**: Netlify or AWS S3 (static)
-* **Backend**: AWS EC2 or Render
-* **Database**: AWS RDS MySQL
-
----
-
-## 📬 Contact
+## 👨‍💻 Developer
 
 **Sagar B J**
-📧 Email: [sagarbj001@gmail.com](mailto:sagarbj001@gmail.com)
-🔗 GitHub: [sagarbj3245](https://github.com/sagarbj3245)
+📧 [sagarbj001@gmail.com](mailto:sagarbj001@gmail.com)
+🔗 [GitHub Profile](https://github.com/sagarbj3245)
 
 ---
+
+## 📌 Links
+
+* 🔗 Live Demo (if deployed): http://13.233.15.15:3000/
+* 📦 GitHub: [https://github.com/sagarbj3245/ExpenseTracker](https://github.com/sagarbj3245/ExpenseTracker)
+
+---
+
+> ✅ Project completed for learning full-stack development and integrating real-time payment & email flows.
+
 
