@@ -45,18 +45,17 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
+console.log(`Starting server on port ${PORT}`);
+console.log(`DB_HOST=${process.env.DB_HOST} DB_PORT=${process.env.DB_PORT} DB_NAME=${process.env.DB_NAME}`);
+
 app.listen(PORT, () => {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log(`Server running on port ${PORT}`);
-  }
+  console.log(`Server running on port ${PORT}`);
 });
 
 const syncOptions = process.env.NODE_ENV === 'production' ? {} : { alter: true };
 sequelize.sync(syncOptions)
   .then(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Database synced successfully');
-    }
+    console.log('Database synced successfully');
   })
   .catch(err => {
     console.error('DB sync failed:', err);
