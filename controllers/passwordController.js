@@ -2,6 +2,7 @@ const { User, ForgotPassword } = require('../db');
 const brevo = require('../utils/brevoClient');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
+const path = require('path');
 
 
 exports.forgotPassword = async (req, res) => {
@@ -16,7 +17,11 @@ exports.forgotPassword = async (req, res) => {
       userId: user.id,
     });
 
-    const resetLink = `${process.env.RESET_PASSWORD_BASE_URL}/${request.id}`;
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const host = req.get('host');
+    const resetPasswordBaseUrl = process.env.RESET_PASSWORD_BASE_URL?.trim();
+    const baseUrl = resetPasswordBaseUrl || `${protocol}://${host}/password/resetpassword`;
+    const resetLink = `${baseUrl}/${request.id}`;
 
     await brevo.sendTransacEmail({
       sender: { email: 'sagarbj001@gmail.com' }, 
@@ -27,8 +32,16 @@ exports.forgotPassword = async (req, res) => {
 
     res.json({ message: 'Reset email sent' });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Something went wrong' });
+    const errorData = err.response?.body || err.response?.text || err.message;
+    console.error('Password reset email failed:', {
+      message: err.message,
+      status: err.status || err.response?.status,
+      data: errorData,
+    });
+    res.status(500).json({
+      message: 'Could not send reset email',
+      error: typeof errorData === 'string' ? errorData : JSON.stringify(errorData),
+    });
   }
 };
 
