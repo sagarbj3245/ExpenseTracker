@@ -19,7 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'signup.html')));
+app.get('/', (req, res) => {
+  res.send('Expense Tracker Backend is Running ✅');
+});
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'views', 'login.html')));
 app.get('/expenses', (req, res) => res.sendFile(path.join(__dirname, 'views', 'expense.html')));
 app.get('/premium', (req, res) => res.sendFile(path.join(__dirname, 'views', 'premium.html')));
