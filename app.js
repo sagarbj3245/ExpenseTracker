@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.get('/', (req, res) => {
-  res.send('Expense Tracker Backend is Running ✅');
+  res.send('Backend is running 🚀');
 });
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'views', 'login.html')));
@@ -33,6 +33,15 @@ app.use('/api', premiumRoutes);
 app.use('/api', paymentRoutes);
 app.use('/api', userRoutes);
 app.use('/password', passwordRoutes);
+
+app.use((req, res) => {
+  res.status(404).send('Not found');
+});
+
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).send('Internal server error');
+});
 
 sequelize.sync({ alter: true })
   .then(() => {
