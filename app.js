@@ -13,6 +13,16 @@ const { sequelize } = require('./db');
 
 const app = express();
 
+app.use((req, res, next) => {
+  if (req.path === '/' || req.path === '/favicon.ico') {
+    console.log(`REQUEST ${req.method} ${req.path}`);
+    res.on('finish', () => {
+      console.log(`RESPONSE ${req.method} ${req.path} ${res.statusCode}`);
+    });
+  }
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
