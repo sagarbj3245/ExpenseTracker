@@ -15,6 +15,7 @@ exports.createOrder = async (req, res) => {
 
   try {
     const expiry = new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString();
+    const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get('host')}`;
 
     const request = {
       order_id: orderId,
@@ -26,7 +27,7 @@ exports.createOrder = async (req, res) => {
         customer_email: 'test@example.com',
       },
       order_meta: {
-        return_url: `${process.env.BASE_URL}/api/payment-status/${orderId}`
+        return_url: `${baseUrl}/api/payment-status/${orderId}`
       },
       order_expiry_time: expiry
     };
@@ -43,8 +44,8 @@ exports.createOrder = async (req, res) => {
     res.json({ paymentSessionId: response.data.payment_session_id });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Could not create order' });
+    console.error('Create order failed:', err.response?.data || err.message || err);
+    res.status(500).json({ message: 'Could not create order', error: err.response?.data || err.message });
   }
 };
 
