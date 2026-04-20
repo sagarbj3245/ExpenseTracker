@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Expense Tracker - Sign Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(145deg, #f5f5dc, #f0e6d2); 
+    }
+    .auth-card {
+      background: #fffaf0;
+      border-radius: 15px;
+      max-width: 400px;
+      width: 100%;
+      border: 2px solid #5b3a29;
+      box-shadow: 0 0 30px rgba(91, 58, 41, 0.4), 0 0 60px rgba(91, 58, 41, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .auth-card:hover {
+      box-shadow: 0 0 40px rgba(91, 58, 41, 0.5), 0 0 80px rgba(91, 58, 41, 0.2);
+    }
+    .auth-heading {
+      color: #5b3a29;
+      font-weight: 700;
+    }
+    .form-control {
+      border-radius: 30px;
+      border: 1px solid #5b3a29;
+      transition: box-shadow 0.3s ease;
+    }
+    .form-control:focus {
+      box-shadow: 0 0 15px rgba(91, 58, 41, 0.6);
+      border-color: #5b3a29;
+    }
+    .btn-auth-primary {
+      background: #5b3a29;
+      color: #fff;
+      border-radius: 30px;
+      border: none;
+      transition: box-shadow 0.3s ease;
+    }
+    .btn-auth-primary:hover {
+      background: #3e261b;
+      box-shadow: 0 0 15px rgba(91, 58, 41, 0.5);
+    }
+    .btn-auth-secondary {
+      background: #e0cda9;
+      color: #5b3a29;
+      border-radius: 30px;
+      border: none;
+      transition: box-shadow 0.3s ease;
+    }
+    .btn-auth-secondary:hover {
+      background: #d4b985;
+      box-shadow: 0 0 10px rgba(91, 58, 41, 0.4);
+    }
+  </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+  <div class="auth-card p-4 shadow">
+    <h3 class="text-center mb-4 auth-heading">Create Your Account</h3>
+    <form id="signupForm">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="Name" required>
+        <label for="name">Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" placeholder="Email" required>
+        <label for="email">Email</label>
+      </div>
+      <div class="form-floating mb-4">
+        <input type="password" class="form-control" id="password" placeholder="Password" required>
+        <label for="password">Password</label>
+      </div>
+      <button type="submit" class="btn btn-auth-primary w-100 mb-3">Sign Up</button>
+      <a href="/login" class="btn btn-auth-secondary w-100">Already have an account? Login</a>
+    </form>
+  </div>
+  <script src="/signup.js"></script>
+</body>
+</html>

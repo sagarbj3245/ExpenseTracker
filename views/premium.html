@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premium Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f5ead4;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .main-flex {
+      max-width: 900px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background: #fdf6e3;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .card-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .tracker-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #5b3a29;
+    }
+    .username-box {
+      background: #5b3a29;
+      color: #fff;
+      padding: 6px 15px;
+      border-radius: 20px;
+    }
+    .premium-badge {
+      background: #ffc107;
+      color: #5b3a29;
+      padding: 6px 15px;
+      border-radius: 20px;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    .btn-darkbrown {
+      background: #5b3a29;
+      color: #fff;
+      border: none;
+    }
+    .btn-darkbrown:hover {
+      background: #b49470;
+      color: #fff;
+    }
+    .btn-lightbrown {
+      background: #b49470;
+      color: #fff;
+      border: none;
+    }
+    .btn-lightbrown:hover {
+      background: #5b3a29;
+      color: #fff;
+    }
+
+    .expense-item {
+      background: #f5ead4; 
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    .expense-actions button {
+      margin-left: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background: #5b3a29;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container main-flex">
+  
+    <div class="card">
+      <div class="card-header-bar">
+        <div class="tracker-title">Expense Tracker</div>
+        <div>
+          <span id="usernameBox" class="username-box">Loading...</span>
+          <span class="premium-badge">⭐ Premium User</span>
+        </div>
+      </div>
+      <form id="expenseForm">
+        <input type="number" id="amount" placeholder="Amount" required class="form-control mb-2" />
+        <input type="text" id="description" placeholder="Description" required class="form-control mb-2" />
+        <select id="category" class="form-select mb-2" required>
+          <option disabled selected>Category</option>
+          <option>Food</option><option>Petrol</option><option>Shopping</option>
+          <option>Entertainment</option><option>Travel</option>
+          <option>Education</option><option>Healthcare</option><option>Salary</option><option>Others</option>
+        </select>
+        <input type="date" id="date" required class="form-control mb-2" />
+        <input type="time" id="time" required class="form-control mb-3" />
+        <button type="submit" id="submitBtn" class="btn btn-darkbrown w-100">Add Expense</button>
+      </form>
+      <ul id="expenseList" class="list-unstyled mt-4"></ul>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <label>Per page:</label>
+          <select id="pageSize" class="form-select d-inline w-auto">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div>
+          <button id="prevPage" class="btn btn-lightbrown">Previous</button>
+          <span id="pageInfo"></span>
+          <button id="nextPage" class="btn btn-darkbrown">Next</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <button id="showLeaderboardBtn" class="btn btn-darkbrown w-100">Show Leaderboard</button>
+      <div id="leaderboard" class="mt-3"></div>
+    </div>
+
+    
+    <div class="card">
+      <div class="d-flex gap-2 mb-3">
+        <button id="dailyBtn" class="btn btn-lightbrown btn-sm">Daily</button>
+        <button id="monthlyBtn" class="btn btn-lightbrown btn-sm">Monthly</button>
+        <button id="yearlyBtn" class="btn btn-lightbrown btn-sm">Yearly</button>
+      </div>
+      <h5>Report</h5>
+      <div id="reportResult"></div>
+      <div id="totalSpent" class="mt-2"></div>
+      <button id="downloadBtn" class="btn btn-darkbrown btn-sm mt-2">Download</button>
+    </div>
+  </div>
+
+  <script src="/premium.js"></script>
+</body>
+</html>
