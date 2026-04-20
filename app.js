@@ -43,14 +43,20 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal server error');
 });
 
-sequelize.sync({ alter: true })
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`Server running on port ${PORT}`);
+  }
+});
+
+const syncOptions = process.env.NODE_ENV === 'production' ? {} : { alter: true };
+sequelize.sync(syncOptions)
   .then(() => {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      if (process.env.NODE_ENV !== 'production') {
-        console.log(`Server running on port ${PORT}`);
-      }
-    });
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Database synced successfully');
+    }
   })
   .catch(err => {
     console.error('DB sync failed:', err);
