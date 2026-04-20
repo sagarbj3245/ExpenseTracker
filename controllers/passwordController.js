@@ -34,11 +34,7 @@ exports.forgotPassword = async (req, res) => {
 
 
 exports.resetPasswordForm = async (req, res) => {
-  const { uuid } = req.params;
-  const request = await ForgotPassword.findOne({ where: { id: uuid, isActive: true } });
-  if (!request) return res.send('Invalid or expired link');
-
-  res.sendFile('resetpassword.html', { root: './views' });
+  res.sendFile(path.join(__dirname, '../views', 'resetpassword.html'));
 };
 
 
