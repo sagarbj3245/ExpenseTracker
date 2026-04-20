@@ -4,8 +4,8 @@ const path = require('path');
 
 const cashfree = new Cashfree(
   Cashfree.SANDBOX,
-  process.env.CASHFREE_CLIENT_ID,
-  process.env.CASHFREE_CLIENT_SECRET
+  (process.env.CASHFREE_CLIENT_ID || '').trim(),
+  (process.env.CASHFREE_CLIENT_SECRET || '').trim()
 );
 
 exports.createOrder = async (req, res) => {
