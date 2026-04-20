@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Expense Tracker Backend is Running ✅');
 });
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'views', 'login.html')));
 app.get('/expenses', (req, res) => res.sendFile(path.join(__dirname, 'views', 'expense.html')));
 app.get('/premium', (req, res) => res.sendFile(path.join(__dirname, 'views', 'premium.html')));
@@ -35,8 +36,13 @@ app.use('/password', passwordRoutes);
 
 sequelize.sync({ alter: true })
   .then(() => {
-    console.log(' DB synced successfully');
     const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, () => {
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`Server running on port ${PORT}`);
+      }
+    });
   })
-  .catch(err => console.error(' DB sync failed:', err));
+  .catch(err => {
+    console.error('DB sync failed:', err);
+  });

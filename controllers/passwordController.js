@@ -45,8 +45,6 @@ exports.resetPasswordForm = async (req, res) => {
 exports.updatePassword = async (req, res) => {
   const { uuid } = req.params;
 
-  console.log('BODY:', req.body); 
-
   const password = req.body.password;
   if (!password) {
     return res.status(400).json({ message: 'Password is missing!' });
